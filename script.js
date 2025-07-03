@@ -18,25 +18,21 @@ document.addEventListener('DOMContentLoaded', () => {
         [10, 8]   // tail
     ];
 
-    //Displaying the snake on the board
-    for (const part of snake){
-        
-        const cell = document.querySelector(`#cell-${part[0]}-${part[1]}`);
-        cell.classList.add("snake")
-        cell.style.backgroundColor = "green";
-    }
 
+    //Logic for placing the snake on the board
     document.querySelectorAll(".snake").forEach(c => c.classList.remove("snake"));
 
-// 4. paint the snake
+    //4. paint the snake
     for (const [row, col] of snake) {
         const cell = document.querySelector(`#cell-${row}-${col}`);
         if (cell) {
         cell.classList.add("snake");            // needs CSS rule
         cell.style.backgroundColor = "green";   // immediate inline fallback
-    } else {
-        console.warn("No cell found for", row, col);
+        } else {
+            console.warn("No cell found for", row, col);
+        }
     }
-    }
+
+    //Now to sort out the movement directions
 
 });
