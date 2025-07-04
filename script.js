@@ -1,5 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
     //ALL LOGIC IN HERE WHEN DOM CONTENT IS LOADED
+
+    //Now to handle the movement logic
+    document.addEventListener("keydown", (event) => {
+        const key = event.key;
+        let dir = "";
+        switch (key){
+            case "ArrowUp":
+                dir = "UP";
+                break;
+            case "ArrowLeft":
+                dir = "LEFT";
+                break;
+            case "ArrowDown":
+                dir = "DOWN";
+                break;
+            case "ArrowRight":
+                dir = "RIGHT";
+                break;
+        }
+        console.log(dir);
+        //change snake positioning
+
+    });
+    
     const sec = document.querySelector('.board');
     //Logic for adding all the divs needed
     for (i=0; i<20; i++){
@@ -32,7 +56,5 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn("No cell found for", row, col);
         }
     }
-
-    //Now to sort out the movement directions
 
 });
