@@ -2,6 +2,39 @@ document.addEventListener('DOMContentLoaded', () => {
     //ALL LOGIC IN HERE WHEN DOM CONTENT IS LOADED
 
     //Now to handle the movement logic
+    let snake = [
+        [10, 10], // head
+        [10, 9],
+        [10, 8]   // tail
+    ];
+
+    function nextMove(move, snakeArr) {
+        const [row, col] = snakeArr[0];
+        let newHead;
+
+        switch (move) {
+            case "UP":
+            newHead = [row - 1, col];
+            break;
+            case "DOWN":
+            newHead = [row + 1, col];
+            break;
+            case "LEFT":
+            newHead = [row, col - 1];
+            break;
+            case "RIGHT":
+            newHead = [row, col + 1];
+            break;
+        }
+
+        // Add the new head to the front
+        snakeArr.unshift(newHead);
+
+        // Remove the tail (for normal movement)
+        snakeArr.pop();
+    }
+
+
     document.addEventListener("keydown", (event) => {
         const key = event.key;
         let dir = "";
@@ -21,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         console.log(dir);
         //change snake positioning
-
+        nextMove(dir, snake);
     });
     
     const sec = document.querySelector('.board');
@@ -36,11 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     ////////////////////The logic now is for the snake position on the board///////////////////
-    let snake = [
-        [10, 10], // head
-        [10, 9],
-        [10, 8]   // tail
-    ];
 
 
     //Logic for placing the snake on the board
