@@ -8,6 +8,23 @@ document.addEventListener('DOMContentLoaded', () => {
         [10, 8]   // tail
     ];
 
+    //Reusable function to display the snake
+    function renderSnake(snakeArr) {
+        // Clear old visuals
+        document.querySelectorAll(".snake").forEach(cell => {
+            cell.classList.remove("snake");
+            cell.style.backgroundColor = "transparent";
+        });
+
+        // Add new visuals
+        for (const [row, col] of snakeArr) {
+            const cell = document.querySelector(`#cell-${row}-${col}`);
+            if (cell) cell.classList.add("snake");
+            cell.style.backgroundColor = "green";   // immediate inline style
+        }
+    }
+
+
     function nextMove(move, snakeArr) {
         const [row, col] = snakeArr[0];
         let newHead;
@@ -55,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(dir);
         //change snake positioning
         nextMove(dir, snake);
+        renderSnake(snake);
     });
     
     const sec = document.querySelector('.board');
