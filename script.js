@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.classList.remove("snake");
             cell.style.backgroundColor = "transparent";
         });
-
+        //
+        
         // Add new visuals
         for (const [row, col] of snakeArr) {
             const cell = document.querySelector(`#cell-${row}-${col}`);
