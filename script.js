@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let snake = [
         [10, 10], // head
         [10, 9],
-        [10, 8]   // tail
+        [10, 8],   // tail
     ];
 
     //Reusable function to display the snake
@@ -18,11 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
         //
         
         // Add new visuals
-        for (const [row, col] of snakeArr) {
+        snakeArr.forEach(([row, col], index) => {
             const cell = document.querySelector(`#cell-${row}-${col}`);
-            if (cell) cell.classList.add("snake");
-            cell.style.backgroundColor = "green";   // immediate inline style
-        }
+            if (cell) {
+                cell.classList.add("snake");
+                cell.style.backgroundColor = index === 0 ? "#023020" : "green";
+            }
+        });
+
     }
 
 
@@ -119,7 +122,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll(".snake").forEach(c => c.classList.remove("snake"));
 
     //4. paint the snake
-    for (const [row, col] of snake) {
+    snake.forEach(([row, col], index) => {
+        const cell = document.querySelector(`#cell-${row}-${col}`);
+        if (cell) {
+            cell.classList.add("snake");
+            cell.style.backgroundColor = index === 0 ? "#023020" : "green";
+        }else{
+            console.warn("No cell found for", row, col);
+        }
+    });
+    //
+    /*for (const [row, col] of snake) {
         const cell = document.querySelector(`#cell-${row}-${col}`);
         if (cell) {
         cell.classList.add("snake");            // needs CSS rule
@@ -127,6 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             console.warn("No cell found for", row, col);
         }
-    }
+    }*/
 
 });
