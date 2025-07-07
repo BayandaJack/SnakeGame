@@ -32,16 +32,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switch (move) {
             case "UP":
-            newHead = [row - 1, col];
+                if (row - 1 < 0){
+                    newHead = [19, col];
+                }else{
+                    newHead = [row - 1, col];
+                }
             break;
             case "DOWN":
-            newHead = [row + 1, col];
+                if (row + 1 == 20){
+                    newHead = [0, col];
+                }else{
+                    newHead = [row + 1, col];
+                }
             break;
             case "LEFT":
-            newHead = [row, col - 1];
+                if (col - 1 < 0){
+                    newHead = [row, 19];
+                }else{
+                    newHead = [row, col - 1];
+                }
             break;
             case "RIGHT":
-            newHead = [row, col + 1];
+                if (col + 1 == 20){
+                    newHead = [row, 0];
+                }else{
+                    newHead = [row, col + 1];
+                }
             break;
         }
 
