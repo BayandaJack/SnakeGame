@@ -1,12 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
     //ALL LOGIC IN HERE WHEN DOM CONTENT IS LOADED
-
+    const sec = document.querySelector('.board');
+    //Logic for adding all the divs needed
+    for (i=0; i<20; i++){
+        for (j=0; j<20; j++){
+            const cell = document.createElement('div');
+            cell.classList.add("cell");
+            cell.id = `cell-${i}-${j}`;
+            sec.appendChild(cell);
+        }
+    }
     //Now to handle the movement logic
     let snake = [
         [10, 10], // head
         [10, 9],
         [10, 8],   // tail
     ];
+
+    //let toPop = false;
+
+    //////Section dealing with apple rendering logic///////
+    function renderApple(){
+        //removing the apple class from all previous cells
+        document.querySelectorAll(".apple").forEach(c => c.classList.remove("apple"));
+        //choosing random cell for apple
+        const apple = [Math.floor(Math.random()*20), Math.floor(Math.random()*20)];
+        //adding apple class to new apple coords
+        const cell = document.querySelector(`#cell-${apple[0]}-${apple[1]}`);
+        if (cell) {
+            cell.classList.add("apple");
+            cell.style.backgroundColor = "red";
+        }
+        //returning the new apple coords
+        return apple;
+    }
+
+    let [apple_a, apple_b] = renderApple();
 
     //Reusable function to display the snake
     function renderSnake(snakeArr) {
@@ -68,15 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
         for (const [row, col] of snakeArr){
             if (row === newHead[0] && col === newHead[1]){
                 flag = true;
-                alert('Cannot move into yourself in any way');
+                alert('Cannot move into yourself in any way, GAME OVER!!!');
+                location.reload();
             }
         }
 
         if (!flag){
             // Add the new head to the front
             snakeArr.unshift(newHead);
-            // Remove the tail (for normal movement)
-            snakeArr.pop();
         }
     }
 
@@ -101,19 +129,19 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(dir);
         //change snake positioning
         nextMove(dir, snake);
+        //logic to check if snake head and apple are equal
+        const [[head_row, head_col]] = snake;
+        if (apple_a === head_row && apple_b === head_col){
+            //toPop = true;
+            const cell = document.querySelector(`#cell-${apple_a}-${apple_b}`);
+            cell.style.backgroundColor = "transparent";
+            [apple_a, apple_b] = renderApple();
+        }else{
+            snake.pop();
+        }
+        //snake rendering logic
         renderSnake(snake);
     });
-    
-    const sec = document.querySelector('.board');
-    //Logic for adding all the divs needed
-    for (i=0; i<20; i++){
-        for (j=0; j<20; j++){
-            const cell = document.createElement('div');
-            cell.classList.add("cell");
-            cell.id = `cell-${i}-${j}`;
-            sec.appendChild(cell);
-        }
-    }
 
     ////////////////////The logic now is for the snake position on the board///////////////////
 
@@ -132,14 +160,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     //
-    /*for (const [row, col] of snake) {
-        const cell = document.querySelector(`#cell-${row}-${col}`);
-        if (cell) {
-        cell.classList.add("snake");            // needs CSS rule
-        cell.style.backgroundColor = "green";   // immediate inline fallback
-        } else {
-            console.warn("No cell found for", row, col);
-        }
-    }*/
 
 });
