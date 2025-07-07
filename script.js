@@ -61,11 +61,20 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
         }
 
-        // Add the new head to the front
-        snakeArr.unshift(newHead);
+        let flag = false;
+        for (const [row, col] of snakeArr){
+            if (row === newHead[0] && col === newHead[1]){
+                flag = true;
+                alert('Cannot move into yourself in any way');
+            }
+        }
 
-        // Remove the tail (for normal movement)
-        snakeArr.pop();
+        if (!flag){
+            // Add the new head to the front
+            snakeArr.unshift(newHead);
+            // Remove the tail (for normal movement)
+            snakeArr.pop();
+        }
     }
 
 
